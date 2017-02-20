@@ -28,13 +28,6 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
-				    <ul role="nav">
-			          <li><Link to="/user">User</Link></li>
-			          <li><Link to="/carts">Carts</Link></li>
-			        </ul>
-				</div>
-				<h1>Super Cart Client</h1>
 				<CreateItem 
 					items={this.state.items}
 					createItem={this.createItem.bind(this)}

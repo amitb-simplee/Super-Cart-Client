@@ -18,7 +18,7 @@ const carts = [
 	}
 ]
 
-export default class CartsList extends React.Component {
+export default class Carts extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -28,14 +28,6 @@ export default class CartsList extends React.Component {
 	render() {
 		return (
 			<div>
-				<div>
-				    <ul role="nav">
-			          <li><Link to="/user">User</Link></li>
-			          <li><Link to="/cart">Cart</Link></li>
-			          <li><Link to="/">App</Link></li>
-			        </ul>
-				</div>
-				<h1>Super Cart Client</h1>
 				<CartCreate 
 					carts={this.state.carts}
 					createCart={this.createCart.bind(this)}
