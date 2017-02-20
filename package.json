@@ -1,5 +1,5 @@
 {
-  "name": "super_cart_client_2",
+  "name": "super_cart_client",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,5 +26,8 @@
   },
   "engines": {
     "node": "5.5.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server"
   }
 }
