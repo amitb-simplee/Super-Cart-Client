@@ -9,20 +9,17 @@ export default class CartItem extends React.Component {
 		};
 	}
 
-	renderItemSection() {
+	renderItemSection(type, item) {
 		const itemStyle = {
 			color: this.props.checked ? 'green' : 'red',
 			cursor: 'pointer'
 		};
-		console.log(this.props);
 		
 		if (this.state.isEditing) {
 			return (
 				<td>
 					<form onSubmit={this.onSaveClick.bind(this)}>
-						<input type="text" defaultValue={this.props.item} ref="editItem" />
-						<input type="text" defaultValue={this.props.quantity} ref="editQuantity" />
-						<input type="text" defaultValue={this.props.note} ref="editNote" />
+						<input type="text" defaultValue={item} ref={"edit"+type} />
 					</form>
 				</td>
 			)
@@ -30,8 +27,8 @@ export default class CartItem extends React.Component {
 		else {
 			return (
 					<td style={itemStyle}
-						onClick={this.props.toggleItem.bind(this, this.props.item)}>
-						{this.props.item}
+						onClick={this.props.toggleItem.bind(this, item)}>
+						{item}
 					</td>
 			);			
 		}
@@ -59,9 +56,9 @@ export default class CartItem extends React.Component {
 	render() {
 		return (		
 			<tr>
-				{this.renderItemSection()}
-				<td>{this.props.quantity}</td>
-				<td>{this.props.note}</td>
+				{this.renderItemSection("Item", this.props.item)}
+				{this.renderItemSection("Quantity", this.props.quantity)}
+				{this.renderItemSection("Note", this.props.note)}
 				{this.renderActionSection()}
 			</tr>		
 		)
@@ -79,6 +76,7 @@ export default class CartItem extends React.Component {
 		event.preventDefault();
 
 		const oldItem = this.props;
+		
 		var newItemValue = this.refs.editItem.value;
 		var newQuantityValue = this.refs.editQuantity.value;
 		var newNoteValue = this.refs.editNote.value;

@@ -8,7 +8,6 @@ export default class App extends React.Component {
 				<div>
 				    <ul role="nav">
 			          <li><Link to="user">User</Link></li>
-			          <li><Link to="carts/1">Cart</Link></li>
 			          <li><Link to="carts">Carts</Link></li>
 			        </ul>
 				</div>

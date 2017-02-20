@@ -11,7 +11,6 @@ export default class Cart extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		return (
 			<table>
 				<CartHeader />

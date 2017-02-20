@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 export default class CartsItem extends React.Component {
 	constructor(props) {
@@ -10,7 +11,6 @@ export default class CartsItem extends React.Component {
 	}
 
 	renderCartSection() {
-		console.log(this.props);
 		if (this.state.isEditing) {
 			return (
 				<td>
@@ -23,7 +23,7 @@ export default class CartsItem extends React.Component {
 		}
 		else {
 			return (
-					<td> {this.props.name} </td>
+					<td><Link to={"carts/" + this.props.id}>{this.props.name}</Link></td>
 			);				
 		}
 	}

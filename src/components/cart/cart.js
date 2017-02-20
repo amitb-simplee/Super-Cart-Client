@@ -3,7 +3,23 @@ import CartList from './cart-list'
 import CreateItem from '../item/create-item'
 import { Link } from 'react-router'
 
-const items = [
+
+const items_for_cart_1 = [
+	{
+		item: "tomato",
+		quantity: "4",
+		note: "",
+		checked: false
+	},
+	{
+		item: "carrets",
+		quantity: "1",
+		note: "orange",
+		checked: true
+	}
+]
+
+const items_for_cart_2 = [
 	{
 		item: "milk",
 		quantity: "1",
@@ -18,10 +34,33 @@ const items = [
 	}
 ]
 
+
+const carts = [
+	{	
+		id: "1",
+		name: "supermarket",
+		date: "1/1/2017",
+		admin: "user2",
+		users: ["user1", "user2"],
+		items: items_for_cart_1
+	},
+	{
+		id: "2",
+		name: "farmers market",
+		date: "1/2/2017",
+		admin: "user1",
+		users: ["user1", "user2", "user3"],
+		items: items_for_cart_2
+	}
+]
+
 export default class Cart extends React.Component {
 	constructor(props) {
 		super(props);
+		const cart = _.find(carts, cart_item => cart_item.id == String(this.props.params.cartId));
+		var items = cart.items;
 		this.state = {
+			cart,
 			items
 		};
 	}
