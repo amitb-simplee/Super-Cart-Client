@@ -2,68 +2,38 @@ import React from 'react'
 import CartList from './cart-list'
 import CreateItem from '../item/create-item'
 import { Link } from 'react-router'
+import * as CartActions from "../actions/CartActions"
+import CartStore from '../stores/CartStore'
 
 
-const items_for_cart_1 = [
-	{
-		item: "tomato",
-		quantity: "4",
-		note: "",
-		checked: false
-	},
-	{
-		item: "carrets",
-		quantity: "1",
-		note: "orange",
-		checked: true
-	}
-]
-
-const items_for_cart_2 = [
-	{
-		item: "milk",
-		quantity: "1",
-		note: "skim milk",
-		checked: false
-	},
-	{
-		item: "eggs",
-		quantity: "2",
-		note: "free eggs",
-		checked: true
-	}
-]
-
-
-const carts = [
-	{	
-		id: "1",
-		name: "supermarket",
-		date: "1/1/2017",
-		admin: "user2",
-		users: ["user1", "user2"],
-		items: items_for_cart_1
-	},
-	{
-		id: "2",
-		name: "farmers market",
-		date: "1/2/2017",
-		admin: "user1",
-		users: ["user1", "user2", "user3"],
-		items: items_for_cart_2
-	}
-]
 
 export default class Cart extends React.Component {
 	constructor(props) {
 		super(props);
-		const cart = _.find(carts, cart_item => cart_item.id == String(this.props.params.cartId));
+		var cartId = String(this.props.params.cartId);
+		const cart = CartStore.getCart(cartId);
 		var items = cart.items;
 		this.state = {
-			cart,
-			items
+			cart: cart,
+			items: items
 		};
 	}
+
+	componentWillMount() {
+		var cartId = String(this.props.params.cartId);
+		const cart = CartStore.getCart(cartId);
+		var items = cart.items;
+
+		CartStore.on("item change", () => {
+		 	this.setState({
+		 		cart: cart,
+				items: items
+		 	});
+		});
+
+		 //TODO: on carts change, update carts name?
+	}
+
 	render() {
 		return (
 			<div>
@@ -82,32 +52,18 @@ export default class Cart extends React.Component {
 	}
 
 	createItem(item, quantity, note) {
-		this.state.items.push({
-			item,
-			quantity,
-			note,
-			checked: false
-		});
-		this.setState({ items: this.state.items});
+		CartActions.createItem(item, quantity, note);
 	}
 
 	toggleItem(item) {
-		const foundItem = _.find(this.state.items, cart_item => cart_item.item === item);
-		foundItem.checked = !foundItem.checked;
-
-		this.setState({items: this.state.items});
+		CartActions.toggleItem(oldItem, newItem);
 	}
 
 	saveItem(oldItem, newItem) {
-		const foundItem = _.find(this.state.items, cart_item => cart_item.item === oldItem.item);
-		foundItem.item = newItem.item;
-		foundItem.quantity = newItem.quantity;
-		foundItem.note = newItem.note;
-		this.setState({items: this.state.items});
+		CartActions.saveItem(oldItem, newItem);
 	}
 
 	deleteItem(item){
-		_.remove(this.state.items, cart_item => cart_item.item === item.item);
-		this.setState({items: this.state.items});
+		CartActions.deleteItem(item);
 	}
 }

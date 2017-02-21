@@ -2,31 +2,30 @@ import React from 'react'
 import CartList from './carts-list'
 import CartCreate from '../cart/create-cart'
 import { Link } from 'react-router'
+import * as CartsActions from "../actions/CartsActions"
+import CartsStore from '../stores/CartsStore'
 
 const carts = [
-	{	
-		id: "1",
-		name: "supermarket",
-		date: "1/1/2017",
-		admin: "user2",
-		users: ["user1", "user2"]
-	},
-	{
-		id: "1",
-		name: "farmers market",
-		date: "1/2/2017",
-		admin: "user1",
-		users: ["user1", "user2", "user3"]
-	}
+
 ]
+const user = {id: "1"};
 
 export default class Carts extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props);		
 		this.state = {
-			carts
+			carts: CartsStore.getAll(user.id)
 		};
 	}
+
+	componentWillMount() {
+		 CartsStore.on("carts change", () => {
+		 	this.setState({
+		 		carts: CartsStore.getAll(user.id)
+		 	});
+		 });
+	}
+
 	render() {
 		return (
 			<div>
@@ -43,23 +42,14 @@ export default class Carts extends React.Component {
 		)
 	}
 	createCart(name) {
-		this.state.carts.push({
-			date: "new date",
-			name: name,
-			admin: "me",
-			users: []
-		});
-		this.setState({ carts: this.state.carts});
+		CartsActions.createCart(name);
 	}
 
 	saveCart(oldCart, newCart) {
-		const foundCart = _.find(this.state.carts, cart_item => cart_item.name === oldCart.name);
-		foundCart.name = newCart.name;
-		this.setState({carts: this.state.carts});
+		CartsActions.saveCart(oldCart, newCart);
 	}
 
 	deleteCart(cart){
-		_.remove(this.state.carts, cart_item => cart_item.name === cart.name);
-		this.setState({carts: this.state.carts});
+		CartsActions.deleteCart(cart);
 	}
 }
