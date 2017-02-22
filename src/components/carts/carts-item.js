@@ -23,7 +23,7 @@ export default class CartsItem extends React.Component {
 		}
 		else {
 			return (
-					<td><Link to={"carts/" + this.props.id}>{this.props.name}</Link></td>
+					<td><Link to={"carts/" + String(this.props._id)}>{this.props.name}</Link></td>
 			);				
 		}
 	}

@@ -5,44 +5,48 @@ import { Link } from 'react-router'
 import * as CartActions from "../actions/CartActions"
 import CartStore from '../stores/CartStore'
 
-
+const user = {id: "amit"};
 
 export default class Cart extends React.Component {
 	constructor(props) {
 		super(props);
 		var cartId = String(this.props.params.cartId);
-		const cart = CartStore.getCart(cartId);
-		var items = cart.items;
+		CartActions.getUserCart(user, cartId);
 		this.state = {
-			cart: cart,
-			items: items
+			cart: CartStore.getUserCart()
 		};
 	}
 
-	componentWillMount() {
-		var cartId = String(this.props.params.cartId);
-		const cart = CartStore.getCart(cartId);
-		var items = cart.items;
+	componentDidMount() {
+		CartStore.on("cart received", this.CartReceived.bind(this));		
+		CartStore.on("item change", this.CartRequest);
+	}
 
-		CartStore.on("item change", () => {
-		 	this.setState({
-		 		cart: cart,
-				items: items
-		 	});
-		});
+	componentWillUnmount() {
+		CartStore.removeListener("cart received", this.CartReceived.bind(this));
+		CartStore.removeListener("item change", this.CartRequest);
+	}
 
-		 //TODO: on carts change, update carts name?
+	CartRequest() {
+		CartActions.getUserCart(user, this.cart._id);
+	}
+
+	CartReceived() {
+	    var cartId = String(this.props.params.cartId);
+		this.setState({
+	      cart: CartStore.getUserCart()
+	    });
 	}
 
 	render() {
 		return (
 			<div>
 				<CreateItem 
-					items={this.state.items}
+					cart={this.state.cart}
 					createItem={this.createItem.bind(this)}
 				/>
 				<CartList 
-					items={this.state.items}
+					cart={this.state.cart}
 					toggleItem={this.toggleItem.bind(this)}
 					saveItem={this.saveItem.bind(this)}
 					deleteItem={this.deleteItem.bind(this)}
@@ -51,19 +55,24 @@ export default class Cart extends React.Component {
 		)
 	}
 
-	createItem(item, quantity, note) {
-		CartActions.createItem(item, quantity, note);
+	createItem(name, quantity, note) {
+		var cart = CartStore.getUserCart();
+		var item = {name: name, quantity: quantity, note, note};
+		CartActions.createItem(user, cart, item);
 	}
 
 	toggleItem(item) {
-		CartActions.toggleItem(oldItem, newItem);
+		var cart = CartStore.getUserCart();	
+		CartActions.toggleItem(user, cart, item);
 	}
 
 	saveItem(oldItem, newItem) {
-		CartActions.saveItem(oldItem, newItem);
+		var cart = CartStore.getUserCart();
+		CartActions.saveItem(user, cart, oldItem, newItem);
 	}
 
 	deleteItem(item){
-		CartActions.deleteItem(item);
+		var cart = CartStore.getUserCart();
+		CartActions.deleteItem(user, cart, item);
 	}
 }

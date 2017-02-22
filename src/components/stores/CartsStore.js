@@ -1,7 +1,6 @@
 import { EventEmitter } from "events";
 import _ from 'lodash'
 import dispatcher from "../dispatcher";
-import axios from "axios";
 
 class CartsStore extends EventEmitter {
 
@@ -40,7 +39,7 @@ class CartsStore extends EventEmitter {
 		this.emit("carts change");
 	}
 
-	getCarts(carts) {
+	updateUserCarts(carts) {
 		this.carts = carts;
 		this.emit("carts received");
 	}
@@ -63,7 +62,7 @@ class CartsStore extends EventEmitter {
 			}
 
 			case "GET_CARTS": {
-				this.getCarts(action.carts);
+				this.updateUserCarts(action.carts);
 				break;
 			}
 		}

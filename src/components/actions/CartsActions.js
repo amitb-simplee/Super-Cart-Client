@@ -2,7 +2,7 @@ import dispatcher from "../dispatcher";
 import axios from "axios";
 
 const base_url = "http://localhost:3001";
-const carts_url = "/carts"
+const carts_url = "/carts";
 
 export function createCart(name) {
 	var post_url = base_url + carts_url;
@@ -14,7 +14,6 @@ export function createCart(name) {
 			type: type
 		});
 	});
-
 }
 
 export function saveCart(oldCart, newCart) {
@@ -44,7 +43,7 @@ export function getUsersCarts(userId) {
 	var get_url = base_url + carts_url;
 	axios.get(get_url, {
 		params: { 
-			userId: "amit"
+			userId: userId
 		}
 	}).then((data) => {
 		const type = "GET_CARTS";
