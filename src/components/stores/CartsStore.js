@@ -1,77 +1,69 @@
 import { EventEmitter } from "events";
 import _ from 'lodash'
 import dispatcher from "../dispatcher";
+import axios from "axios";
 
 class CartsStore extends EventEmitter {
 
 	constructor() {
 		super();
-		this.carts = [
-			{	
-				id: "1",
-				name: "supermarket",
-				date: "2017/1/1",
-				admin: "user2",
-				users: ["user1", "user2"]
-			},
-			{
-				id: "2",
-				name: "farmers market",
-				date: "2017/1/2",
-				admin: "user1",
-				users: ["user1", "user2", "user3"]
-			}
-		];
+		this.carts = [];
 	}
 
-	createCart(name) {
-		const id = "3";
-		const date = "21/2/2017";
-		
-		this.carts.push({
-			id: id,
-			name: name,
-			date: date,
-			admin: "me",
-			users: [],
-			items: []
-		});
+	getUsersCarts() {
+		return this.carts;
+	}
+
+	createCart() {
+		// this.carts.push({
+		// 	id: item.id,
+		// 	name: item.name,
+		// 	date: item.date,
+		// 	admin: item.admin,
+		// 	users: item.users,
+		// 	items: item.items
+		// });
 
 		this.emit("carts change");
 	}
 
-	saveCart(oldCart, newCart) {
-		const foundCart = _.find(this.carts, cart_item => cart_item.name === oldCart.name);
-		foundCart.name = newCart.name;
+	saveCart() {
+		// const foundCart = _.find(this.carts, cart_item => cart_item.name === oldCart.name);
+		// foundCart.name = newCart.name;
 		
 		this.emit("carts change");
 	}
 
-	deleteCart(cart) {
-		_.remove(this.carts, cart_item => cart_item.name === cart.name);
+	deleteCart() {
+		// _.remove(this.carts, cart_item => cart_item.name === cart.name);
 		// this.setState({carts: this.state.carts});
 		this.emit("carts change");
 	}
 
-	getAll(userId) {
-		return this.carts;
+	getCarts(carts) {
+		this.carts = carts;
+		this.emit("carts received");
 	}
 
 	handleActions(action) {
-		console.log(action);
 		switch(action.type) {
 			case "CREATE_CART": {
-				this.createCart(action.name);
+				this.createCart();
 				break;
 			}
 		
 			case "SAVE_CART": {
-				this.saveCart(action.oldCart, action.newCart);
+				this.saveCart();
 				break;
 			}
 
 			case "DELETE_CART": {
-				this.deleteCart(action.cart);
+				this.deleteCart();
+				break;
+			}
+
+			case "GET_CARTS": {
+				this.getCarts(action.carts);
 				break;
 			}
 		}

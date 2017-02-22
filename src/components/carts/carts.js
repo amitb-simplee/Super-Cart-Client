@@ -5,25 +5,35 @@ import { Link } from 'react-router'
 import * as CartsActions from "../actions/CartsActions"
 import CartsStore from '../stores/CartsStore'
 
-const carts = [
-
-]
 const user = {id: "1"};
 
 export default class Carts extends React.Component {
 	constructor(props) {
-		super(props);		
+		super(props);
+		CartsActions.getUsersCarts(name);
 		this.state = {
-			carts: CartsStore.getAll(user.id)
+			carts: CartsStore.getUsersCarts()
 		};
 	}
 
-	componentWillMount() {
-		 CartsStore.on("carts change", () => {
-		 	this.setState({
-		 		carts: CartsStore.getAll(user.id)
-		 	});
-		 });
+	componentDidMount() {
+		CartsStore.on("carts received", this.CartsReceived.bind(this));		
+		CartsStore.on("carts change", this.CartsRequest);
+	}
+
+	componentWillUnmount() {
+		CartsStore.removeListener("carts received", this.CartsReceived.bind(this));
+		CartsStore.removeListener("carts change", this.CartsRequest);
+	}
+
+	CartsRequest() {
+	    CartsActions.getUsersCarts(name);
+	}
+
+	CartsReceived() {
+	    this.setState({
+	      carts: CartsStore.getUsersCarts()
+	    });
 	}
 
 	render() {
@@ -49,7 +59,7 @@ export default class Carts extends React.Component {
 		CartsActions.saveCart(oldCart, newCart);
 	}
 
-	deleteCart(cart){
+	deleteCart(cart) {
 		CartsActions.deleteCart(cart);
 	}
 }
