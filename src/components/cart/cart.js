@@ -1,5 +1,6 @@
 import React from 'react'
 import CartList from './cart-list'
+import CartHeader from '../cart/cart-header'
 import CreateItem from '../item/create-item'
 import { Link } from 'react-router'
 import * as CartActions from "../actions/CartActions"
@@ -43,8 +44,12 @@ export default class Cart extends React.Component {
 	}
 
 	render() {
+		var cart = CartStore.getUserCart();
 		return (
 			<div>
+				<CartHeader 
+					cart={cart}
+				/>
 				<CreateItem 
 					cart={this.state.cart}
 					createItem={this.createItem.bind(this)}
@@ -67,6 +72,8 @@ export default class Cart extends React.Component {
 
 	toggleItem(item) {
 		var cart = CartStore.getUserCart();	
+
+		debugger;
 		CartActions.toggleItem(user, cart, item);
 	}
 

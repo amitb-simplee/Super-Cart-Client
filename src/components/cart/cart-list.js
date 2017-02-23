@@ -1,5 +1,5 @@
 import React from 'react'
-import CartHeader from './cart-header'
+import CartListHeader from './cart-list-header'
 import CartItem from './cart-item'
 import _ from 'lodash'
 
@@ -15,7 +15,7 @@ export default class Cart extends React.Component {
 	render() {
 		return (
 			<table>
-				<CartHeader />
+				<CartListHeader />
 				<tbody>
 					{this.renderItems()}
 				</tbody>

@@ -2,15 +2,9 @@ import React from 'react'
 
 export default class CartHeader extends React.Component {
 	render() {
+		var cartName = this.props.cart ? this.props.cart.name : "Undefined";
 		return (		
-			<thead>
-				<tr>
-					<th>Item</th>
-					<th>Quantity</th>
-					<th>Note</th>
-					<th>Action</th>
-				</tr>
-			</thead>			
+			<h1>Cart: { cartName }</h1>		
 		)
 	}
 }
