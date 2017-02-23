@@ -15,23 +15,27 @@ export default class Cart extends React.Component {
 		this.state = {
 			cart: CartStore.getUserCart()
 		};
+
+		// cinding listener functions
+		this.cartReceived = this.cartReceived.bind(this);
+		this.cartRequest = this.cartRequest.bind(this);
 	}
 
-	componentDidMount() {
-		CartStore.on("cart received", this.CartReceived.bind(this));		
-		CartStore.on("item change", this.CartRequest);
+	componentWillMount() {
+		CartStore.on("cart received", this.cartReceived);		
+		CartStore.on("item change", this.cartRequest);
 	}
 
 	componentWillUnmount() {
-		CartStore.removeListener("cart received", this.CartReceived.bind(this));
-		CartStore.removeListener("item change", this.CartRequest);
+		CartStore.removeListener("cart received", this.cartReceived);
+		CartStore.removeListener("item change", this.cartRequest);
 	}
 
-	CartRequest() {
-		CartActions.getUserCart(user, this.cart._id);
+	cartRequest() {
+		CartActions.getUserCart(user, this.props.params.cartId);
 	}
 
-	CartReceived() {
+	cartReceived() {
 	    var cartId = String(this.props.params.cartId);
 		this.setState({
 	      cart: CartStore.getUserCart()

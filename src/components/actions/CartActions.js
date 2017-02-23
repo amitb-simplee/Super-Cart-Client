@@ -37,7 +37,7 @@ export function saveItem(user, cart, oldItem, newItem) {
 }
 
 export function toggleItem(user, cart, item) {
-	var put_url = base_url + carts_url + "/" + cart._id + items_url + "/" + oldItem._id;
+	var put_url = base_url + carts_url + "/" + cart._id + items_url + "/" + item._id;
 	axios.put(put_url, {
 		userId: user.id,
 		checked: !item.checked

@@ -14,28 +14,14 @@ class CartsStore extends EventEmitter {
 	}
 
 	createCart() {
-		// this.carts.push({
-		// 	id: item.id,
-		// 	name: item.name,
-		// 	date: item.date,
-		// 	admin: item.admin,
-		// 	users: item.users,
-		// 	items: item.items
-		// });
-
 		this.emit("carts change");
 	}
 
 	saveCart() {
-		// const foundCart = _.find(this.carts, cart_item => cart_item.name === oldCart.name);
-		// foundCart.name = newCart.name;
-		
 		this.emit("carts change");
 	}
 
 	deleteCart() {
-		// _.remove(this.carts, cart_item => cart_item.name === cart.name);
-		// this.setState({carts: this.state.carts});
 		this.emit("carts change");
 	}
 

@@ -14,23 +14,26 @@ export default class Carts extends React.Component {
 		this.state = {
 			carts: CartsStore.getUsersCarts()
 		};
+		//
+		this.cartsReceived = this.cartsReceived.bind(this);
+		this.cartsRequest = this.cartsRequest.bind(this);
 	}
 
-	componentDidMount() {
-		CartsStore.on("carts received", this.CartsReceived.bind(this));		
-		CartsStore.on("carts change", this.CartsRequest);
+	componentWillMount() {
+		CartsStore.on("carts received", this.cartsReceived);		
+		CartsStore.on("carts change", this.cartsRequest);
 	}
 
 	componentWillUnmount() {
-		CartsStore.removeListener("carts received", this.CartsReceived.bind(this));
-		CartsStore.removeListener("carts change", this.CartsRequest);
+		CartsStore.removeListener("carts received", this.cartsReceived);
+		CartsStore.removeListener("carts change", this.cartsRequest);
 	}
 
-	CartsRequest() {
+	cartsRequest() {
 	    CartsActions.getUsersCarts(user.id);
 	}
 
-	CartsReceived() {
+	cartsReceived() {
 	    this.setState({
 	      carts: CartsStore.getUsersCarts(user.id)
 	    });

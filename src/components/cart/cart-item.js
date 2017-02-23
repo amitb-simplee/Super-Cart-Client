@@ -14,7 +14,6 @@ export default class CartItem extends React.Component {
 			color: this.props.checked ? 'green' : 'red',
 			cursor: 'pointer'
 		};
-		
 		if (this.state.isEditing) {
 			return (
 				<td>
@@ -27,7 +26,7 @@ export default class CartItem extends React.Component {
 		else {
 			return (
 					<td style={itemStyle}
-						onClick={this.props.toggleItem.bind(this, item)}>
+						onClick={this.onToggleClick.bind(this)}>
 						{item}
 					</td>
 			);			
@@ -64,6 +63,11 @@ export default class CartItem extends React.Component {
 		)
 	}
 
+	onToggleClick() {
+		const item = {_id: this.props._id, checked: this.props.checked};
+		this.props.toggleItem(item);
+	}
+
 	onEditClick() {
 		this.setState({isEditing: true});
 	}
@@ -81,7 +85,7 @@ export default class CartItem extends React.Component {
 		var newQuantityValue = this.refs.editQuantity.value;
 		var newNoteValue = this.refs.editNote.value;
 
-		const newItem = {name: newItemValue, quantity: newQuantityValue, note: newNoteValue}
+		const newItem = {item: newItemValue, quantity: newQuantityValue, note: newNoteValue}
 
 		this.props.saveItem(oldItem, newItem);
 		this.setState({isEditing: false});
