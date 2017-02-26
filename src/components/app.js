@@ -1,14 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router'
+import styles from './app.css';
 
 export default class App extends React.Component {
 	render() {
 		return (
-			<div>
+			<div className="container">
 				<div>
-				    <ul role="nav">
-			          <li><Link to="user">User</Link></li>
-			          <li><Link to="carts">Carts</Link></li>
+				    <ul role="nav" className="nav nav-tabs">
+			          <li className="nav-item"><Link to="user" className="nav-link" >User</Link></li>
+			          <li className="nav-item"><Link to="carts" className="nav-link">Carts</Link></li>
 			        </ul>
 				</div>
 				<h1>Super Cart Client</h1>

@@ -73,3 +73,10 @@ export function getUserCart(user, cartId) {
 		});
 	});	
 }
+
+export function servertCartUpdate() {
+	const type = "SERVER_UPDATE";
+	dispatcher.dispatch({
+		type: type
+	});
+}

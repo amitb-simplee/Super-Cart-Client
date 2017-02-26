@@ -9,6 +9,7 @@ export default class CartsHeader extends React.Component {
 					<th>Name</th>
 					<th>Admin</th>
 					<th>Users</th>
+					<th></th>
 				</tr>
 			</thead>			
 		)

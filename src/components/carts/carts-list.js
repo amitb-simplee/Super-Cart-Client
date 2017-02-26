@@ -11,7 +11,7 @@ export default class CartsList extends React.Component {
 
 	render() {
 		return (
-			<table>
+			<table className="table table-bordered">
 				<CartsHeader />
 				<tbody>
 					{this.renderCarts()}

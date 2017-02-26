@@ -19,11 +19,13 @@ export default class CartCreate extends React.Component {
 	}
 	render() {
 		return (
+		<div className="input-group">
 			<form onSubmit={this.handleCreate.bind(this)}>
 				<input type="name" placeholder="item" ref="nameInput" />	
 				<button>Create</button>	
 				{this.renderError()}	
 			</form>
+		</div>
 		)
 	}
 

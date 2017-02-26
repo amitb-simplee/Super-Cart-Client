@@ -46,7 +46,7 @@ class CartsStore extends EventEmitter {
 				this.deleteCart();
 				break;
 			}
-
+			
 			case "GET_CARTS": {
 				this.updateUserCarts(action.carts);
 				break;

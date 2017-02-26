@@ -23,7 +23,7 @@ export default class ItemCreate extends React.Component {
 				<input type="item" placeholder="item" ref="itemInput" />
 				<input type="quantity" placeholder="quantity" ref="quantityInput" />
 				<input type="note" placeholder="note" ref="noteInput" />	
-				<button>Add</button>	
+				<button bsSize="large">Add</button>	
 				{this.renderError()}	
 			</form>
 		)
