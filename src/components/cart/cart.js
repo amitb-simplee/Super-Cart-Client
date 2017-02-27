@@ -7,7 +7,7 @@ import * as CartActions from "../actions/CartActions"
 import CartStore from '../stores/CartStore'
 import io from 'socket.io-client'
 
-const user = {id: "amit"};
+const user = window.sessionStorage.getItem("userEmail");
 var socket = null;
 export default class Cart extends React.Component {
 	constructor(props) {

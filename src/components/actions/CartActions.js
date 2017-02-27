@@ -52,7 +52,9 @@ export function toggleItem(userId, cart, item) {
 export function deleteItem(userId, cart, item) {
 	var delete_url = base_url + carts_url + "/" + cart._id + items_url + "/" + item._id;
 	axios.delete(delete_url, {
-		userId: userId		
+		params: { 
+			userId: userId
+		}	
 	}).then((data) => {
 		const type = "DELETE_ITEM";
 		dispatcher.dispatch({
@@ -64,7 +66,9 @@ export function deleteItem(userId, cart, item) {
 export function getUserCart(userId, cartId) {
 	var get_url = base_url + carts_url + "/" + cartId;
 	axios.get(get_url, {
-		userId: userId		
+		params: { 
+			userId: userId
+		}	
 	}).then((data) => {
 		const type = "GET_CART";
 		dispatcher.dispatch({
@@ -76,7 +80,17 @@ export function getUserCart(userId, cartId) {
 
 export function servertCartUpdate() {
 	const type = "SERVER_UPDATE";
-	dispatcher.dispatch({
+	sleep(50);
+    dispatcher.dispatch({
 		type: type
 	});
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }

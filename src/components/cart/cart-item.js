@@ -55,7 +55,7 @@ export default class CartItem extends React.Component {
 	render() {
 		return (		
 			<tr>
-				{this.renderItemSection("Item", this.props.name)}
+				{this.renderItemSection("Name", this.props.name)}
 				{this.renderItemSection("Quantity", this.props.quantity)}
 				{this.renderItemSection("Note", this.props.note)}
 				{this.renderActionSection()}
@@ -81,11 +81,11 @@ export default class CartItem extends React.Component {
 
 		const oldItem = this.props;
 		
-		var newItemValue = this.refs.editItem.value;
+		var newNameValue = this.refs.editName.value;
 		var newQuantityValue = this.refs.editQuantity.value;
 		var newNoteValue = this.refs.editNote.value;
 
-		const newItem = {item: newItemValue, quantity: newQuantityValue, note: newNoteValue}
+		const newItem = {name: newNameValue, quantity: newQuantityValue, note: newNoteValue}
 
 		this.props.saveItem(oldItem, newItem);
 		this.setState({isEditing: false});

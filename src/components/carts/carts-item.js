@@ -10,21 +10,27 @@ export default class CartsItem extends React.Component {
 		};
 	}
 
-	renderCartSection() {
+	renderCartSection(type, item) {
 		if (this.state.isEditing) {
 			return (
 				<td>
 					<form onSubmit={this.onSaveClick.bind(this)}>
-						<input type="text" defaultValue={this.props.name} ref="editName" />
-
+						<input type="text" defaultValue={type != "Users" ? item : ""} ref={"edit"+type} />
 					</form>
 				</td>
 			)
 		}
 		else {
-			return (
-					<td><Link to={"carts/" + String(this.props._id)}>{this.props.name}</Link></td>
-			);				
+			if(type == "Name") {
+				return (
+						<td><Link to={"carts/" + String(this.props._id)}>{item}</Link></td>
+				);		
+			}
+			else {
+					return (
+						<td>{item}</td>
+				);				
+			}		
 		}
 	}
 
@@ -51,9 +57,9 @@ export default class CartsItem extends React.Component {
 		return (		
 			<tr>
 				<td>{this.props.date}</td>
-				{this.renderCartSection()}
+				{this.renderCartSection("Name", this.props.name)}
 				<td>{this.props.admin}</td>
-				<td>{this.props.users}</td>
+				{this.renderCartSection("Users", this.props.users)}
 				{this.renderActionSection()}
 			</tr>		
 		)
@@ -72,9 +78,8 @@ export default class CartsItem extends React.Component {
 
 		const oldCart = this.props;
 		var newCartNameValue = this.refs.editName.value;
-
-		const newCart = {date: oldCart.date, name: newCartNameValue, admin: oldCart.name, users: oldCart.users}
-
+		var addedUser = this.refs.editUsers.value;
+		const newCart = {date: oldCart.date, name: newCartNameValue, admin: oldCart.name, users: addedUser}
 		this.props.saveCart(oldCart, newCart);
 		this.setState({isEditing: false});
 	}

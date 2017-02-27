@@ -22,7 +22,8 @@ export function saveCart(oldCart, newCart, userId) {
 	axios.put(put_url, {
 			id: oldCart._id,
 			name: newCart.name,
-			userId: userId
+			userId: userId,
+			users: newCart.users
 	}).then((data) => {
 		const type = "SAVE_CART";
 		dispatcher.dispatch({
@@ -34,7 +35,9 @@ export function saveCart(oldCart, newCart, userId) {
 export function deleteCart(cart, userId) {
 	var delete_url = base_url + carts_url + "/" + cart._id;
 	axios.delete(delete_url, {
-			userId: userId 
+			params: { 
+				userId: userId
+			}
 		}).then((data) => {
 		const type = "DELETE_CART";
 		dispatcher.dispatch({

@@ -12,7 +12,7 @@ class CartStore extends EventEmitter {
 		return this.cart;
 	}
 
-	servertCartUpdate() {
+	serverCartUpdate() {
 		this.emit("item change");
 	}
 
@@ -60,7 +60,7 @@ class CartStore extends EventEmitter {
 			}
 
 			case "SERVER_UPDATE": {
-				this.servertCartUpdate();
+				this.serverCartUpdate();
 				break;
 			}
 
