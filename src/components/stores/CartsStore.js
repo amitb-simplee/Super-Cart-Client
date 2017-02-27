@@ -13,6 +13,10 @@ class CartsStore extends EventEmitter {
 		return this.carts;
 	}
 
+	serverCartsUpdate() {
+		this.emit("carts change");
+	}
+
 	createCart() {
 		this.emit("carts change");
 	}
@@ -44,6 +48,11 @@ class CartsStore extends EventEmitter {
 
 			case "DELETE_CART": {
 				this.deleteCart();
+				break;
+			}
+
+			case "SERVER_UPDATE": {
+				this.serverCartsUpdate();
 				break;
 			}
 			

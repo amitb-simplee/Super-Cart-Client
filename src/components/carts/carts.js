@@ -4,12 +4,18 @@ import CartCreate from '../cart/create-cart'
 import { Link } from 'react-router'
 import * as CartsActions from "../actions/CartsActions"
 import CartsStore from '../stores/CartsStore'
+import UserStore from '../stores/UserStore'
+import io from 'socket.io-client'
 
 const userId = window.sessionStorage.getItem("userEmail");
-		
+var socket = null;		
 export default class Carts extends React.Component {
 	constructor(props) {
 		super(props);
+		if (!userId) {
+			UserStore.signOut();
+		}
+
 		CartsActions.getUsersCarts(userId);
 		this.state = {
 			carts: CartsStore.getUsersCarts()
@@ -17,6 +23,8 @@ export default class Carts extends React.Component {
 		//
 		this.cartsReceived = this.cartsReceived.bind(this);
 		this.cartsRequest = this.cartsRequest.bind(this);
+
+		this.socketConnect(); 
 	}
 
 	componentWillMount() {
@@ -39,6 +47,29 @@ export default class Carts extends React.Component {
 	    });
 	}
 
+	socketConnect() {
+		
+		socket = io.connect('http://localhost:4008', {query: userId, reconnect: true});
+
+		// Add a connect listener
+		socket.on('connect', function (socket) {
+		    console.log('Connected!');
+		    
+		});
+
+		// Server Listener for update in cart
+		socket.on('server:carts_update', function (data) {
+		    console.log('server:carts_update: ', data.cart);
+		    CartsActions.servertCartsUpdate();
+		});
+		
+	}
+
+	BroadcastCartsUpdate() {
+		var data = {userId: userId};
+		socket.emit('client:carts_update', data);
+	}
+
 	render() {
 		return (
 			<div>
@@ -56,13 +87,16 @@ export default class Carts extends React.Component {
 	}
 	createCart(name) {
 		CartsActions.createCart(name, userId);
+		this.BroadcastCartsUpdate();
 	}
 
 	saveCart(oldCart, newCart) {
 		CartsActions.saveCart(oldCart, newCart, userId);
+		this.BroadcastCartsUpdate();
 	}
 
 	deleteCart(cart) {
 		CartsActions.deleteCart(cart, userId);
+		this.BroadcastCartsUpdate();
 	}
 }

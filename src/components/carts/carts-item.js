@@ -79,7 +79,7 @@ export default class CartsItem extends React.Component {
 		const oldCart = this.props;
 		var newCartNameValue = this.refs.editName.value;
 		var addedUser = this.refs.editUsers.value;
-		const newCart = {date: oldCart.date, name: newCartNameValue, admin: oldCart.name, users: addedUser}
+		const newCart = {date: oldCart.date, name: newCartNameValue, users: addedUser}
 		this.props.saveCart(oldCart, newCart);
 		this.setState({isEditing: false});
 	}
