@@ -8,7 +8,7 @@ export default class App extends React.Component {
 			<div className="container">
 				<div>
 				    <ul role="nav" className="nav nav-tabs">
-			          <li className="nav-item"><Link to="user" className="nav-link" >User</Link></li>
+			          <li className="nav-item"><Link to="user" className="nav-link" >{window.sessionStorage.getItem("userEmail") ? window.sessionStorage.getItem("userEmail") : "Sign In"}</Link></li>
 			          <li className="nav-item"><Link to="carts" className="nav-link">Carts</Link></li>
 			        </ul>
 				</div>

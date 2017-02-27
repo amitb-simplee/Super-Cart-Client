@@ -5,12 +5,12 @@ import { Link } from 'react-router'
 import * as CartsActions from "../actions/CartsActions"
 import CartsStore from '../stores/CartsStore'
 
-const user = {id: "amit"};
-
+const userId = window.sessionStorage.getItem("userEmail");
+		
 export default class Carts extends React.Component {
 	constructor(props) {
 		super(props);
-		CartsActions.getUsersCarts(user.id);
+		CartsActions.getUsersCarts(userId);
 		this.state = {
 			carts: CartsStore.getUsersCarts()
 		};
@@ -30,12 +30,12 @@ export default class Carts extends React.Component {
 	}
 
 	cartsRequest() {
-	    CartsActions.getUsersCarts(user.id);
+	    CartsActions.getUsersCarts(userId);
 	}
 
 	cartsReceived() {
 	    this.setState({
-	      carts: CartsStore.getUsersCarts(user.id)
+	      carts: CartsStore.getUsersCarts(userId)
 	    });
 	}
 
@@ -55,14 +55,14 @@ export default class Carts extends React.Component {
 		)
 	}
 	createCart(name) {
-		CartsActions.createCart(name);
+		CartsActions.createCart(name, userId);
 	}
 
 	saveCart(oldCart, newCart) {
-		CartsActions.saveCart(oldCart, newCart);
+		CartsActions.saveCart(oldCart, newCart, userId);
 	}
 
 	deleteCart(cart) {
-		CartsActions.deleteCart(cart);
+		CartsActions.deleteCart(cart, userId);
 	}
 }

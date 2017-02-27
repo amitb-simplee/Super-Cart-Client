@@ -6,10 +6,10 @@ const carts_url = "/carts";
 const items_url = "/items";
 
 
-export function createItem(user, cart, item) {
+export function createItem(userId, cart, item) {
 	var post_url = base_url + carts_url + "/" + cart._id + items_url;
 	axios.post(post_url, {
-		userId: user.id,
+		userId: userId,
 		name: item.name,
 		quantity: item.quantity,
 		note: item.note
@@ -21,10 +21,10 @@ export function createItem(user, cart, item) {
 	});
 }
 
-export function saveItem(user, cart, oldItem, newItem) {
+export function saveItem(userId, cart, oldItem, newItem) {
 	var put_url = base_url + carts_url + "/" + cart._id + items_url + "/" + oldItem._id;
 	axios.put(put_url, {
-		userId: user.id,
+		userId: userId,
 		name: newItem.name,
 		quantity: newItem.quantity,
 		note: newItem.note
@@ -36,10 +36,10 @@ export function saveItem(user, cart, oldItem, newItem) {
 	});	
 }
 
-export function toggleItem(user, cart, item) {
+export function toggleItem(userId, cart, item) {
 	var put_url = base_url + carts_url + "/" + cart._id + items_url + "/" + item._id;
 	axios.put(put_url, {
-		userId: user.id,
+		userId: userId,
 		checked: !item.checked
 	}).then((data) => {
 		const type = "SAVE_ITEM";
@@ -49,10 +49,10 @@ export function toggleItem(user, cart, item) {
 	});	
 }
 
-export function deleteItem(user, cart, item) {
+export function deleteItem(userId, cart, item) {
 	var delete_url = base_url + carts_url + "/" + cart._id + items_url + "/" + item._id;
 	axios.delete(delete_url, {
-		userId: user.id		
+		userId: userId		
 	}).then((data) => {
 		const type = "DELETE_ITEM";
 		dispatcher.dispatch({
@@ -61,10 +61,10 @@ export function deleteItem(user, cart, item) {
 	});	
 }
 
-export function getUserCart(user, cartId) {
+export function getUserCart(userId, cartId) {
 	var get_url = base_url + carts_url + "/" + cartId;
 	axios.get(get_url, {
-		userId: user.id		
+		userId: userId		
 	}).then((data) => {
 		const type = "GET_CART";
 		dispatcher.dispatch({
