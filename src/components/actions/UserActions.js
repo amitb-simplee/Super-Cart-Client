@@ -22,3 +22,10 @@ export function signIn(user) {
 		});
 	});
 }
+
+export function signOut() {
+	const type = "SIGN_OUT";
+	dispatcher.dispatch({
+		type: type
+	});
+}

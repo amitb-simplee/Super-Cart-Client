@@ -11,7 +11,7 @@ import { Router, IndexRoute, Route, hashHistory } from 'react-router'
 render((
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Carts}></IndexRoute>
+      
       <Route path="user" component={User}/>     
 	  <Route path="carts/:cartId" component={Cart}/>
 	  <Route path="carts" component={Carts} />

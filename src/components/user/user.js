@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
+import SignIn from './signIn'
+import SignOut from './signOut'
 import * as UserActions from "../actions/UserActions"
 import UserStore from '../stores/UserStore'
 
@@ -37,22 +39,23 @@ export default class User extends React.Component {
 	}
 
 	render() {
-		return (
-		  <div>
-	        <h1>User</h1>
-			<form onSubmit={this.onSignInClick.bind(this)}>
-				<input type="text" ref="email" placeholder="email"/>
-				<button onClick={this.onSignInClick.bind(this)}>Sign in</button>
-			</form>	        
-	      </div>
-		)
-	}
-
-	onSignInClick(event) {
-		event.preventDefault();
-
-		var userEmail = this.refs.email.value;
-		var user = {email: userEmail};
-		UserActions.signIn(user);
+		if (window.sessionStorage.getItem("userEmail")) {
+			return (
+			  <div>
+		        <h2>User Sign Out</h2>
+				<SignOut/>
+				        
+		      </div>
+			)			
+		}
+		else {
+			return (
+			  <div>
+		        <h2>User Sign in</h2>
+				<SignIn/>
+				        
+		      </div>
+			)		
+		}
 	}
 }
