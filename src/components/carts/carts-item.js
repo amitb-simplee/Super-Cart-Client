@@ -117,8 +117,7 @@ export default class CartsItem extends React.Component {
 
 		const oldCart = this.props;
 		var newCartNameValue = this.refs.editName.value;
-		var addedUser = this.refs.editUsers.value;
-		const newCart = {date: oldCart.date, name: newCartNameValue, users: addedUser}
+		const newCart = {date: oldCart.date, name: newCartNameValue}
 		this.props.saveCart(oldCart, newCart);
 		this.setState({isEditing: false});
 	}
@@ -128,17 +127,4 @@ export default class CartsItem extends React.Component {
 		this.props.deleteCart(deleteCart);
 	}
 
-	// onAddUser(event, email) {
-	// 	event.preventDefault();
-	// 	const oldCart = this.props;
-	// 	var newCartNameValue = this.refs.editName.value;
-	// 	const newCart = {date: oldCart.date, name: newCartNameValue, users: email}
-	// 	this.props.saveCart(oldCart, newCart);
-	// 	this.setState({isEditing: false});
-	// }
-
-	// onRemoveUser() {
-	// 	const deleteCart = this.props;
-	// 	this.props.deleteCart(deleteCart);
-	// }
 }
