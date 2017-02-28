@@ -11,8 +11,9 @@ export default class CartItem extends React.Component {
 
 	renderItemSection(type, item) {
 		const itemStyle = {
-			color: this.props.checked ? 'green' : 'red',
-			cursor: 'pointer'
+			// color: this.props.checked ? 'green' : 'red',
+			cursor: 'pointer',
+			textDecoration: this.props.checked ? 'line-through' : 'none'
 		};
 		if (this.state.isEditing) {
 			return (

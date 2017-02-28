@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './components/app.css';
 import { render } from 'react-dom';
 import App from 'components/app';
 import Cart from 'components/cart/cart';
