@@ -91,6 +91,7 @@ export default class Carts extends React.Component {
 	}
 
 	saveCart(oldCart, newCart) {
+		console.log("Carts saveCart");
 		CartsActions.saveCart(oldCart, newCart, userId);
 		this.BroadcastCartsUpdate();
 	}

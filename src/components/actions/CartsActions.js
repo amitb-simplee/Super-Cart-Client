@@ -23,7 +23,8 @@ export function saveCart(oldCart, newCart, userId) {
 			id: oldCart._id,
 			name: newCart.name,
 			userId: userId,
-			users: newCart.users
+			addUser: newCart.addUser,
+			removeUser: newCart.removeUser
 	}).then((data) => {
 		const type = "SAVE_CART";
 		dispatcher.dispatch({
